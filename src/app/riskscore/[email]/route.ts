@@ -6,7 +6,6 @@ export async function GET(
 ) {
     try {
         const response = await fetch(`https://dev.stedi.me/riskscore/${params.email}`, {
-            method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
                 'suresteps.session.token': req.headers.get('suresteps.session.token') || '',
