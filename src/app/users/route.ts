@@ -1,34 +1,20 @@
-import { NextResponse } from 'next/server';
+// src/app/user/route.ts
+import { NextRequest, NextResponse } from 'next/server'
 
-import { getSession } from '@/lib/auth';
-import { prisma } from '@/lib/db';
-import { HttpException } from '@/lib/http';
-import { getAppLogger } from '@/lib/logger';
-
-const logger = getAppLogger('api:users');
-
-export async function GET() {
+export async function POST(req: NextRequest) {
     try {
-        // check auth
-        const { user: authUser } = await getSession();
+        const body = await req.json()
 
-        const where =
-            authUser.type === 'standard'
-                ? {
-                      id: authUser.id,
-                  }
-                : undefined;
+        const response = await fetch('https://dev.stedi.me/user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(body),
+        })
 
-        logger.debug('getting users...');
-        const result = await prisma.user.findMany({ where });
+        const text = await response.text()
 
-        return NextResponse.json(result);
-    } catch (e) {
-        if (e instanceof HttpException) {
-            return NextResponse.json({ error: e.message }, { status: e.statusCode });
-        }
-
-        logger.error('request failed: %s', e);
-        return NextResponse.json({ error: 'Server Error' }, { status: 500 });
+        return new NextResponse(text, { status: response.status })
+    } catch (error) {
+        return new NextResponse('Internal Server Error', { status: 500 })
     }
 }
