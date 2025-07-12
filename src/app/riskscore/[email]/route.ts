@@ -1,12 +1,11 @@
 import { NextResponse } from 'next/server';
 
-// Simulación de función (elimínala si ya tienes una real)
 async function getUserRiskScore(email: string) {
-    return { email, score: 85 }; // puedes ajustar este valor según tu lógica real
+    return { email, score: 85 };
 }
 
-export async function GET(_: Request, context: { params: { email: string } }) {
-    const email = context.params.email;
+export async function GET(_: Request, { params }: { params: { email: string } }) {
+    const email = params.email;
 
     try {
         const result = await getUserRiskScore(email);
