@@ -4,8 +4,8 @@ async function getUserRiskScore(email: string) {
     return { email, score: 85 };
 }
 
-export async function GET(_: Request, { params }: { params: { email: string } }) {
-    const email = params.email;
+export async function GET(request: Request, context: any) {
+    const email = context.params.email;
 
     try {
         const result = await getUserRiskScore(email);
