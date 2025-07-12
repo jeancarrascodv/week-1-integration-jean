@@ -1,17 +1,17 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextResponse } from 'next/server';
 
-export async function GET(req: NextRequest, { params }: { params: { email: string } }) {
+// Simulación de función (elimínala si ya tienes una real)
+async function getUserRiskScore(email: string) {
+    return { email, score: 85 }; // puedes ajustar este valor según tu lógica real
+}
+
+export async function GET(_: Request, context: { params: { email: string } }) {
+    const email = context.params.email;
+
     try {
-        const response = await fetch(`https://dev.stedi.me/riskscore/${params.email}`, {
-            headers: {
-                'Content-Type': 'application/json',
-                'suresteps.session.token': req.headers.get('suresteps.session.token') || '',
-            },
-        });
-
-        const json = await response.json();
-        return NextResponse.json(json, { status: response.status });
+        const result = await getUserRiskScore(email);
+        return NextResponse.json(result);
     } catch (_error) {
-        return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
+        return NextResponse.json({ error: 'Something went wrong' }, { status: 500 });
     }
 }
