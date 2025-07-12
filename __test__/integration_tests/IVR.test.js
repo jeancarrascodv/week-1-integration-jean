@@ -13,7 +13,9 @@ dotenv.config({ path: path.resolve(rootDir, '.env') });
 
 // Check if API_URL environment variable exists
 if (!process.env.API_URL) {
-    console.error('\x1b[31m%s\x1b[0m', `
+    console.error(
+        '\x1b[31m%s\x1b[0m',
+        `
 ❌ ERROR: API_URL environment variable not set!
    Update the week1-integration-test.yaml file's API_URL environment variable to match your Vercel domain
    For local development, you can set it via:
@@ -23,14 +25,17 @@ if (!process.env.API_URL) {
 
    IMPORTANT: You need to deploy your own API to Vercel first, then use your
    own Vercel domain for these tests. Do not use the production domains.
-`);
+`
+    );
     process.exit(1); // Exit with error code
 }
 
 // Verify that the API_URL is not pointing to the production domains
 const API_URL = process.env.API_URL;
 if (API_URL.includes('dev.stedi.me') || API_URL.includes('stedi.me')) {
-    console.error('\x1b[31m%s\x1b[0m', `
+    console.error(
+        '\x1b[31m%s\x1b[0m',
+        `
 ❌ ERROR: Invalid API_URL detected: ${API_URL}
 
    You are attempting to run tests against the example domain.
@@ -44,7 +49,8 @@ if (API_URL.includes('dev.stedi.me') || API_URL.includes('stedi.me')) {
    4. Push your changes to GitHub
 
    IMPORTANT: These tests are meant to run against YOUR OWN deployed API, not the example API.
-`);
+`
+    );
     process.exit(1); // Exit with error code
 }
 
@@ -63,7 +69,6 @@ beforeAll(async () => {
     console.info('Session token: ', token);
     await createCustomer();
 });
-
 
 ///// Test for IVR /////
 
@@ -105,7 +110,6 @@ describe('Backend Handling of IoT Device Data', () => {
         expect(data.score > 0).toBe(true);
     });
 });
-
 
 ///// Helper functions /////
 

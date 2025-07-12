@@ -1,4 +1,5 @@
 [![Open in Codespaces](https://classroom.github.com/assets/launch-codespace-2972f46106e565e64193e422d61a12cf1da4916b45550586e14ef0a7c637dd04.svg)](https://classroom.github.com/open-in-codespaces?assignment_repo_id=19892443)
+
 ## Getting Started
 
 Based one:
@@ -67,12 +68,12 @@ Integration tests are designed to test your deployed API. Before running them:
 1. Deploy your API to Vercel
 2. Get your Vercel domain (should look like: `https://your-project-name.vercel.app`)
 3. Create a `.env` file in the root directory and add:
-   ```
-   API_URL=https://your-vercel-domain.vercel.app
-   ```
+    ```
+    API_URL=https://your-vercel-domain.vercel.app
+    ```
 4. Run the integration tests:
-   ```bash
-   npm run test:integration
-   ```
+    ```bash
+    npm run test:integration
+    ```
 
 **Important:** Integration tests must run against your own deployed API, not the production stedi.me domains. The tests will check this and fail if they detect production domains.

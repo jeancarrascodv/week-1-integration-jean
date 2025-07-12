@@ -21,8 +21,8 @@ services:
         volumes:
             - minio_data:/data
         ports:
-            - "${MINIO_API_PORT:-9000}:9000"
-            - "${MINIO_WEBUI_PORT:-9001}:9001"
+            - '${MINIO_API_PORT:-9000}:9000'
+            - '${MINIO_WEBUI_PORT:-9001}:9001'
         networks:
             - app-network
         command: server /data --console-address ":9001"
@@ -31,8 +31,8 @@ services:
         image: axllent/mailpit:latest
         container_name: stedi-mailpit
         ports:
-            - "${MAILPIT_SMTP_PORT:-1025}:1025"
-            - "${MAILPIT_WEBUI_PORT:-8025}:8025"
+            - '${MAILPIT_SMTP_PORT:-1025}:1025'
+            - '${MAILPIT_WEBUI_PORT:-8025}:8025'
         networks:
             - app-network
 

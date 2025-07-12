@@ -1,13 +1,7 @@
 {
-    "plugins": [
-        "simple-import-sort",
-        "@typescript-eslint"
-    ],
+    "plugins": ["simple-import-sort", "@typescript-eslint"],
     "parser": "@typescript-eslint/parser",
-    "extends": [
-        "next/core-web-vitals",
-        "plugin:prettier/recommended"
-    ],
+    "extends": ["next/core-web-vitals", "plugin:prettier/recommended"],
     "rules": {
         "react-hooks/exhaustive-deps": "off",
         "simple-import-sort/imports": "error",

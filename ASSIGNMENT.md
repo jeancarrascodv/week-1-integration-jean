@@ -8,14 +8,14 @@ Hello future developers! In this assignment, you will create a new API using Nex
 flowchart LR
   %% Define the steps in order from left to right
   step1:::step1Class --- step2:::step2Class --- step3:::step3Class
-  
+
   %% Step 1
   subgraph step1["Step 1: Pass-Through API"]
     direction TB
     U1["User"] --> N1["New API (pass-through)"] --> O1["Old API"]
     O1 --> N1 --> U1
   end
-  
+
   %% Step 2
   subgraph step2["Step 2: Double-Writing"]
     direction TB
@@ -24,14 +24,14 @@ flowchart LR
     N2 --> D2[("New Database")] --> N2
     N2 --> U2
   end
-  
+
   %% Step 3
   subgraph step3["Step 3: Cut-Over to New Database"]
     direction TB
     U3["User"] --> N3["New API (new-db only)"] --> D3[("New Database")]
     D3 --> N3 --> U3
   end
-  
+
   classDef step1Class fill:#e6f7ff,stroke:#1890ff
   classDef step2Class fill:#f6ffed,stroke:#52c41a
   classDef step3Class fill:#fff7e6,stroke:#fa8c16
@@ -60,6 +60,7 @@ Your new API doesn't change any information - it just passes it along. This way,
 ### Step 2: Start Using a New Database
 
 Once your pass-through API is working, we'll start saving information in two places:
+
 1. The old API (like we did in Step 1)
 2. A new database that you control
 
@@ -94,94 +95,99 @@ For this assignment, you will:
 Your API needs to handle the following requests:
 
 ### 1. Create a User
+
 - **Endpoint**: `/user`
 - **Method**: POST
 - **Body**:
-  ```json
-  {
-    "userName": "email@example.com",
-    "email": "email@example.com",
-    "phone": "1234567890",
-    "region": "US",
-    "birthDate": "2000-01-01",
-    "password": "Password123",
-    "verifyPassword": "Password123",
-    "agreedToTermsOfUseDate": 1685923134000,
-    "agreedToCookiePolicyDate": 1685923134000,
-    "agreedToPrivacyPolicyDate": 1685923134000,
-    "agreedToTextMessageDate": 1685923134000
-  }
-  ```
+    ```json
+    {
+        "userName": "email@example.com",
+        "email": "email@example.com",
+        "phone": "1234567890",
+        "region": "US",
+        "birthDate": "2000-01-01",
+        "password": "Password123",
+        "verifyPassword": "Password123",
+        "agreedToTermsOfUseDate": 1685923134000,
+        "agreedToCookiePolicyDate": 1685923134000,
+        "agreedToPrivacyPolicyDate": 1685923134000,
+        "agreedToTextMessageDate": 1685923134000
+    }
+    ```
 - **Response**: Status 200 if successful
 
 ### 2. Log In
+
 - **Endpoint**: `/login`
 - **Method**: POST
 - **Body**:
-  ```json
-  {
-    "userName": "email@example.com",
-    "password": "Password123"
-  }
-  ```
+    ```json
+    {
+        "userName": "email@example.com",
+        "password": "Password123"
+    }
+    ```
 - **Response**: Session token as text
 
 ### 3. Create a Customer
+
 - **Endpoint**: `/customer`
 - **Method**: POST
 - **Headers**: `suresteps.session.token: <token from login>`
 - **Body**:
-  ```json
-  {
-    "customerName": "Test User",
-    "email": "email@example.com",
-    "region": "US",
-    "phone": "1234567890",
-    "whatsAppPhone": "1234567890",
-    "birthDay": "2000-01-01"
-  }
-  ```
+    ```json
+    {
+        "customerName": "Test User",
+        "email": "email@example.com",
+        "region": "US",
+        "phone": "1234567890",
+        "whatsAppPhone": "1234567890",
+        "birthDay": "2000-01-01"
+    }
+    ```
 - **Response**: Status 200 if successful
 
 ### 4. Save Step Data
+
 - **Endpoint**: `/rapidsteptest`
 - **Method**: POST
 - **Headers**: `suresteps.session.token: <token from login>`
 - **Body**:
-  ```json
-  {
-    "customer": "email@example.com",
-    "startTime": 1685923134000,
-    "stepPoints": [100],
-    "deviceId": "000",
-    "totalSteps": 1
-  }
-  ```
+    ```json
+    {
+        "customer": "email@example.com",
+        "startTime": 1685923134000,
+        "stepPoints": [100],
+        "deviceId": "000",
+        "totalSteps": 1
+    }
+    ```
 - **Response**: "Saved" as text
 
 ### 5. Get Risk Score
+
 - **Endpoint**: `/riskscore/{email}`
 - **Method**: GET
 - **Headers**: `suresteps.session.token: <token from login>`
 - **Response**:
-  ```json
-  {
-    "score": 10
-  }
-  ```
+    ```json
+    {
+        "score": 10
+    }
+    ```
 
 ## How to Run the Tests
 
 1. Deploy your API to Vercel
 2. Get your Vercel domain (like: `https://your-project-name.vercel.app`)
 3. Create a `.env` file and set:
-   ```
-   API_URL=https://your-vercel-domain.vercel.app
-   ```
+    ```
+    API_URL=https://your-vercel-domain.vercel.app
+    ```
 4. Run the tests:
-   ```bash
-   npm run test:integration
-   ```
+    ```bash
+    npm run test:integration
+    ```
 
 **Important**: The tests will check that you're using your own API, not the old one. You must deploy your own API to Vercel first.
 
