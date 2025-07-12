@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: { params: { email: strin
 
         const json = await response.json();
         return NextResponse.json(json, { status: response.status });
-    } catch (error) {
+    } catch (_error) {
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
     }
 }
